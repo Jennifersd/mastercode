@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-from django.template.defaulttfilters import slugify
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 class Language(models.Model):
@@ -59,7 +59,7 @@ class Lesson(models.Model):
     active = models.BooleanField(default=False)
     
     def save(self, *args, **Kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.title)
         super(Lesson, self).save(*args, **Kwargs)
     
     def get_absolute_url(self):
