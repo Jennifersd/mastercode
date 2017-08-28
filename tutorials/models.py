@@ -50,3 +50,26 @@ class TutorialSeries(models.Model):
         return self.name
     
 class Lesson(models.Model):
+    tutorial_series = models.ForeignKey(TutorialSeries)
+    title = models.CharField(max_length=250)
+    video = models.TextField(blank=True, null=True)
+    content = models.TextField(blank=True, null=True)
+    slug = models.SlugField(max_length=250, unique=True)
+    free_preview = models.BooleanField(default=False)
+    active = models.BooleanField(default=False)
+    
+    def save(self, *args, **Kwargs):
+        self.slug = slugify(self.name)
+        super(Lesson, self).save(*args, **Kwargs)
+    
+    def get_absolute_url(self):
+        return reverse('tutorials:lesson_details', args=[self.slug] )
+
+    def __str__(self):
+        return self.title
+    
+    
+    
+    
+    
+    
