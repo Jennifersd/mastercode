@@ -44,8 +44,8 @@ class TutorialSeries(models.Model):
         super(TutorialSeries, self).save(*args, **Kwargs)
         
     def get_absolute_url(self):
-        return reverse('tutorials:tutorial_series_details', args=[self.slug] )
-
+        return reverse('tutorials:tutorial_series_detail', args=[self.slug] )
+    
     def __str__(self):
         return self.name
     
