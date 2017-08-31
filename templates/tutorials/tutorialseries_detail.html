@@ -5,9 +5,18 @@
     <div class="jumbotron">
       <div class="container">
         <h1>{{ object.name }}</h1>
-        <p>jdas jasd ajsdadkja asd</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        <p>{{ object.description }}</p>
+        <p>Experience Level: {{ object.studentExperience }}</p>
       </div>
     </div>
-
-{% endblock %}
+    <div class="container">
+	    	<ul class="list-group">
+			{% for lesson in lessons %}
+			<li class="list-group-item">
+				<span class="badge">25</span>
+				<a href="">{{ lesson.title }}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %} 
