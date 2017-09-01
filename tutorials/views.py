@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView
+from django.views.generic import ListView
 
 from .models import TutorialSeries, Lesson
 
@@ -33,7 +34,8 @@ from .models import TutorialSeries, Lesson
 #        context = self.get_context_data(object=self.object)
 #        return self.render_to_response(context)
 
- 
+class TutorialSeriesListView(ListView):
+    model = TutorialSeries
 
 def tutorial_series_detail(request, slug):
     series = get_object_or_404(TutorialSeries, slug=slug)
@@ -56,3 +58,6 @@ def lesson_detail(request, tutorial_series, slug):
     }
     
     return render(request, template, context)
+
+
+# 16 11:50
