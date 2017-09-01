@@ -53,6 +53,7 @@ class Lesson(models.Model):
     tutorial_series = models.ForeignKey(TutorialSeries)
     title = models.CharField(max_length=250)
     video = models.TextField(blank=True, null=True)
+    length = models.CharField(max_length=50, blank=True, null=True)
     content = models.TextField(blank=True, null=True)
     slug = models.SlugField(max_length=250, unique=True)
     free_preview = models.BooleanField(default=False)
