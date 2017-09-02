@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.template.loader import get_template
 
 from .models import NewsletterUser
 from .forms import NewsletterUserSignUpForm
@@ -20,8 +21,14 @@ def newsletter_signup(request):
             subject = "Thank You For Joining Our Newsletter"
             from_email = settings.EMAIL_HOST_USER
             to_email = [instance.email]
-            signup_message = "Welcome to Master Code Online Newsletter. If you would like to unsubscribe visit http://127.0.0.1:8000/newsletter/unsubscribe"
-            send_mail(subject=subject, from_email=from_email, recipient_list=to_email, message=signup_message, fail_silently=False)
+            #signup_message = "Welcome to Master Code Online Newsletter. If you would like to unsubscribe visit http://127.0.0.1:8000/newsletter/unsubscribe"
+            #send_mail(subject=subject, from_email=from_email, recipient_list=to_email, message=signup_message, fail_silently=False)
+            with open(settings.BASE_DIR + '/templates/newsletters/sign_up_email.txt') as f:
+                signup_message = f.read()
+            message = EmailMultiAlternatives(subject=subject, body=signup_message, from_email=from_email, to=to_email)
+            html_template = get_template('newsletters/sign_up_email.html').render()
+            message.attach_alternative(html_template, "text/html")
+            message.send()
             
     context = {
         'form' : form,
@@ -41,8 +48,15 @@ def newsletter_unsubscribe(request):
             subject = "Your Email has been removed"
             from_email = settings.EMAIL_HOST_USER
             to_email = [instance.email]
-            signup_message = "Sorry to see you go let us know  if there is an issue with our service "
-            send_mail(subject=subject, from_email=from_email, recipient_list=to_email, message=signup_message, fail_silently=False)
+            #signup_message = "Sorry to see you go let us know  if there is an issue with our service "
+            #send_mail(subject=subject, from_email=from_email, recipient_list=to_email, message=signup_message, fail_silently=False)
+            
+            with open(settings.BASE_DIR + '/templates/newsletters/unsubscribe_email.txt') as f:
+                signup_message = f.read()
+            message = EmailMultiAlternatives(subject=subject, body=signup_message, from_email=from_email, to=to_email)
+            html_template = get_template('newsletters/unsubscribe_email.html').render()
+            message.attach_alternative(html_template, "text/html")
+            message.send()
             
         else:
             messages.warning(request, 'Your email is not in our database', 'alert alert-warning alert-dismissible')
