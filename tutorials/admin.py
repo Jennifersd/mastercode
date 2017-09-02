@@ -11,7 +11,7 @@ admin.site.register(StudentExperience)
 
 class TutorialSeriesAdmin(admin.ModelAdmin):
     exclude = ('slug',)
-    list_display = ( 'name' , 'language' , 'description', 'studentExperience' , 'archived')
+    list_display = ( 'name' , 'language' , 'description', 'student_experience' , 'archived')
 admin.site.register(TutorialSeries, TutorialSeriesAdmin)
 
 class LessonAdmin(admin.ModelAdmin):

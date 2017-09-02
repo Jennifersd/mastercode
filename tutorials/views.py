@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView
-from django.views.generic import ListView
-
+#from django.views.generic import DetailView   no es necesario
+#from django.views.generic import ListView
+from django.db.models import Count
 from .models import TutorialSeries, Lesson
 
 #def tutorial_series_detail(request, slug):
@@ -34,12 +34,26 @@ from .models import TutorialSeries, Lesson
 #        context = self.get_context_data(object=self.object)
 #        return self.render_to_response(context)
 
-class TutorialSeriesListView(ListView):
-    model = TutorialSeries
+#class TutorialSeriesListView(ListView):
+#    model = TutorialSeries
+
+def tutorial_series_list(request):
+    tutorials = TutorialSeries.objects.all().prefetch_related(
+        'tutorials'
+    ).annotate(
+        lesson=Count('tutorials')
+    )               # Con esto podemos ver e numero de lecciones que tiene un tutorial 
+    template = "tutorials/tutorialseries_list.html"
+    
+    context = {
+        'tutorials': tutorials,
+    }
+    return render(request, template, context)
+    
 
 def tutorial_series_detail(request, slug):
     series = get_object_or_404(TutorialSeries, slug=slug)
-    lessons = series.lesson_set.filter(tutorial_series=series)
+    lessons = series.tutorials.filter(tutorial_series=series)
     
     template = "tutorials/tutorialseries_detail.html"
     

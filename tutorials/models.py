@@ -33,7 +33,7 @@ class StudentExperience(models.Model):
     
 class TutorialSeries(models.Model):
     language = models.ForeignKey(Language)
-    studentExperience = models.ForeignKey(StudentExperience)
+    student_experience = models.ForeignKey(StudentExperience)
     name = models.CharField(max_length=250)
     description = models.TextField(blank=True, null=True)
     archived = models.BooleanField(default=False)
@@ -50,7 +50,7 @@ class TutorialSeries(models.Model):
         return self.name
     
 class Lesson(models.Model):
-    tutorial_series = models.ForeignKey(TutorialSeries)
+    tutorial_series = models.ForeignKey(TutorialSeries, related_name='tutorials')  #Con related name,  podemos ver e numero de lecciones que tiene un tutorial
     title = models.CharField(max_length=250)
     video = models.TextField(blank=True, null=True)
     length = models.CharField(max_length=50, blank=True, null=True)
