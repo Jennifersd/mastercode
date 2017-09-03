@@ -1,0 +1,15 @@
+{% extends "control_base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+	<h1 class="page-header">Dashboard</h1>  
+	<form method="POST">{% csrf_token %}
+		<div class="input-group">
+			{{form|crispy}}
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="submit">Save</button>
+			</span>
+		</div>
+	</form>    
+{% endblock %}
