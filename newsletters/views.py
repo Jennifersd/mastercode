@@ -5,7 +5,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.template.loader import get_template
-
+ 
 from .models import NewsletterUser, Newsletter
 from .forms import NewsletterUserSignUpForm, NewsletterCreationForm
 
@@ -146,15 +146,15 @@ def control_newsletter_edit(request, pk):
                     send_mail(subject=subject, from_email=from_email, recipient_list=[email], message=body, fail_silently=True)
             return redirect('control_panel:control_newsletter_detail', pk=newsletter.pk)
         
-        else:
-            form = NewsletterCreationForm(instance=newsletter)
-        
-        context = {
-            'form': form,
-        } 
-        
-        template = "control_panel/control_newsletter.html"
-        return render(request, template, context)
+    else:
+        form = NewsletterCreationForm(instance=newsletter)
+    
+    context = {
+        'form': form,
+    } 
+    
+    template = "control_panel/control_newsletter.html"
+    return render(request, template, context)
     
         
     

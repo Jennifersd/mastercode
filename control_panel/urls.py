@@ -1,5 +1,4 @@
 from django.conf.urls import url
-
 from newsletters.views import control_newsletter, control_newsletter_list, control_newsletter_detail, control_newsletter_edit
 
 urlpatterns = [
@@ -8,3 +7,5 @@ urlpatterns = [
     url(r'^newsletter-detail/(?P<pk>\d+)/$', control_newsletter_detail, name='control_newsletter_detail'),
     url(r'^newsletter-edit/(?P<pk>\d+)/$', control_newsletter_edit, name='control_newsletter_edit'),
 ]
+
+
