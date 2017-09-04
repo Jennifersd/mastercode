@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^control/', include('control_panel.urls',  namespace='control_panel', app_name='control_panel')),
     url(r'^newsletter/', include('newsletters.urls',  namespace='newsletters', app_name='newsletters')),
     url(r'^tutorials/', include('tutorials.urls',  namespace='tutorials', app_name='tutorials')),
+    url(r'^accounts/', include('accounts.urls',  namespace='accounts', app_name='accounts')),
 ]
 

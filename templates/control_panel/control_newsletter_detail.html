@@ -8,8 +8,8 @@
 	{{newsletter.body}}
 	<div class="col-sm-8 col-sm-offset-4">
 		<div class="col-sm-2"><a href="{% url 'control_panel:control_newsletter_edit' pk=newsletter.pk %}"><button>Edit</button></a></div>
-		<div class="col-sm-2"><button>Delete</button></div>
+		<div class="col-sm-2"><a href="{% url 'control_panel:control_newsletter_delete' pk=newsletter.pk %}"><button>Delete</button></a></div>
 		<div class="col-sm-2"><a href="{% url 'control_panel:control_newsletter' %}"><button class="btn btn-success">New</button></a></div>
 	</div>
 </div> 
-{% endblock %}
+{% endblock %}	
