@@ -150,7 +150,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #accounts
 LOGIN_REDIRECT_URL = 'home'
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'   esto es para probar el envio de email, llegan por la consola
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'   esto es para probar el envio de email, llegan por la consola    
 
 
 try: 
