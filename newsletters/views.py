@@ -68,7 +68,6 @@ def newsletter_unsubscribe(request):
     template = "newsletters/unsubscribe.html"
     return render(request, template, context)
 
-
 def control_newsletter(request):
     form = NewsletterCreationForm(request.POST or None)
 
@@ -89,7 +88,6 @@ def control_newsletter(request):
     
     template = "control_panel/control_newsletter.html"
     return render(request, template, context)
-
 
 def control_newsletter_list(request):
     newsletters = Newsletter.objects.all()

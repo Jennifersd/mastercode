@@ -11,7 +11,6 @@ from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 
-
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 
@@ -20,13 +19,9 @@ from django.utils.http import urlsafe_base64_decode
 from re import template
 
 from django.conf import settings
-from django.core.mail import send_mail, EmailMessage
-
+from django.core.mail import send_mail, EmailMessage, EmailMultiAlternatives
 
 from django.http import HttpResponse
-
-
-
 
 #def signup(request):
 #    if request.method == 'POST':
@@ -44,8 +39,6 @@ from django.http import HttpResponse
 #    template = "registration/sign_up.html"
 #    return render(request, template , {'form': form})
 
-
-
 #def signup(request):
 #    if request.method == 'POST':
 #        form = SignUpForm(request.POST)
@@ -62,7 +55,6 @@ from django.http import HttpResponse
 #        form = SignUpForm()
 #    template = "registration/sign_up.html"
 #    return render(request, template , {'form': form})
-
 
 def signup(request):
     if request.method == 'POST':
@@ -82,12 +74,12 @@ def signup(request):
 #            user.email_user(subject, message)
 #            return redirect('accounts:account_activation_sent')
         
-        
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
+            from_email = settings.EMAIL_HOST_USER
             message = render_to_string('registration/account_activation_email.html', {
                 'user':user, 
                 'domain':current_site.domain,
@@ -96,8 +88,10 @@ def signup(request):
             })
             mail_subject = 'Activate your blog account.'
             to_email = form.cleaned_data.get('email')
-            email = EmailMessage(mail_subject, message, to=[to_email])
+            email = EmailMultiAlternatives(mail_subject, message, from_email=from_email, to=[to_email])
             email.send()
+            
+        
             return HttpResponse('Please confirm your email address to complete the registration')
 
     else:
@@ -105,12 +99,9 @@ def signup(request):
     template = "registration/sign_up.html"
     return render(request, template , {'form': form})
 
-
-
 def account_activation_sent(request):
     template = 'registration/account_activation_sent.html'
     return render(request, template)
-
 
 def activate(request, uidb64, token):
     try:
@@ -129,3 +120,12 @@ def activate(request, uidb64, token):
         template = "registration/account_activation_invalid.html"
         return render(request, template)
     
+
+
+
+
+
+
+
+
+
